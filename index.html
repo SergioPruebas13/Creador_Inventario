@@ -1,0 +1,151 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+</head>
+	
+	<style type="text/css">
+		
+		.container{
+			border: 1px solid gray;
+			width: 300px;
+			height: 180px;
+		}
+		.part{
+			display: flex;
+			justify-content: space-between;
+		}
+
+		thead{
+			border: 1px solid gray;
+		}
+
+	</style>
+
+<body>
+
+	<div class="container">
+	
+	<div class="part">
+		<label>Id: </label>
+		<input type="text" id="Id" placeholder="Marca">
+		
+	</div>
+	<div class="part">
+		<label>Marca: </label>
+		<input type="text" id="Marca" placeholder="Marca">
+		
+	</div>
+	<div class="part">
+		<label>Referencia: </label>
+		<input type="text" id="Referencia" placeholder="Referencia">
+		
+	</div>
+	<div class="part">
+		<label>Labrado: </label>
+		<input type="text" id="Labrado" placeholder="Labrado">
+		
+	</div>
+	<div class="part">
+		<label>Camara: </label>
+		<input type="text" id="Camara" placeholder="Camara">
+		
+	</div>
+	<div class="part">
+		<label>Precio: </label>
+		<input type="text" id="Precio" placeholder="Precio">
+		
+	</div>
+	<div class="part">
+		<label>Stock: </label>
+		<input type="text" id="Stock" placeholder="Stock">
+		
+	</div>
+	<div class="part">
+		<label>Img: </label>
+		<input type="text" id="Img" placeholder="Img">
+	</div>
+
+	</div>
+	<br>
+	<button  onclick="agregar()">Agregar</button>
+	<button  onclick="saver()">Save</button>
+	<a href="https://es.piliapp.com/json/formatter/">Pagina Para Formatear JSON</a>
+	<br><br>
+	<div class="mostrar">
+		<table class="tabla" border="1">
+			<thead>
+				<tr>
+					<th>id</th>
+					<th>Marca</th>
+					<th>Referencia</th>
+					<th>Labrado</th>
+					<th>Camara</th>
+					<th>Precio</th>
+					<th>Stock</th>
+					<th>Img</th>
+				</tr>
+			</thead>
+			
+			<tbody id="tbody">
+				
+			</tbody>
+		</table>
+	</div>
+
+</body>
+	<script src="FileSaver.js"></script>
+
+	<script type="text/javascript">
+
+		var json_ = [];
+
+		function agregar(){
+			var id = document.getElementById('Id').value;
+			var Marca = document.getElementById('Marca').value;
+			var Referencia = document.getElementById('Referencia').value;
+			var Labrado = document.getElementById('Labrado').value;
+			var Camara = document.getElementById('Camara').value;
+			var Precio = document.getElementById('Precio').value;
+			var Stock = document.getElementById('Stock').value;
+			var Img = document.getElementById('Img').value;
+
+			var obje = {id,Marca,Referencia,Labrado,Camara,Precio,Stock,
+			Img};
+
+			json_.push(obje);
+			alert('Datos Agregados')
+			mostar();
+		}
+	
+	function mostar(){
+		var tbody = document.getElementById('tbody');
+		tbody.innerHTML = "";
+		for (let i = 0; i < json_.length; i++) {
+			tbody.innerHTML += `
+				<tr>
+						<td>${json_[i].id}</td>
+						<td>${json_[i].Marca}</td>
+						<td>${json_[i].Referencia}</td>
+						<td>${json_[i].Labrado}</td>
+						<td>${json_[i].Camara}</td>
+						<td>${json_[i].Precio}</td>
+						<td>${json_[i].Stock}</td>
+						<td>${json_[i].Img}</td>
+				</tr>
+			`;
+		}
+	}
+
+
+
+
+	function saver() {
+		var myString = JSON.stringify(json_);
+		var blob = new Blob([myString], {type: "text/plain;charset=utf-8"});
+		saveAs(blob, "inventario.txt");
+		
+	}
+	</script>
+</html>
